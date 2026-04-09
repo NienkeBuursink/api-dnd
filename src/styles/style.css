@@ -1,0 +1,104 @@
+:root{
+    --main-color-dark: rgb(111, 0, 0);
+    --main-color-light: gold;
+    --accent-color: rgb(0, 52, 0);
+
+    --font-size-huge: clamp(2.5em, 3vw, 4em);
+    --font-size-big: clamp(1.3em, 2vw, 2em);
+    --font-size-small: clamp(1.4em, 2vw, 1.8em)
+}
+
+@font-face {
+    font-family: ringbearer;
+    src: url(/src/fonts/ringbearer.TTF); 
+    /* https://www.1001fonts.com/ringbearer-font.html */
+}
+
+@font-face {
+    font-family: hobbiton;
+    src: url(/src/fonts/hobbiton.ttf); 
+    /* https://www.dafont.com/hobbiton.font?text=Elf&back=theme */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img{
+    max-width: 100%;
+}
+
+body{
+    background-color: var(--main-color-dark);
+    padding: 3rem;
+    place-items: center;
+    h1{
+        color: var(--main-color-light);
+        font-family: ringbearer, 'Times New Roman', Times, serif;
+        font-size: var(--font-size-huge);
+    }
+    p{
+        font-family: hobbiton, 'Times New Roman', Times, serif;
+        font-size: var(--font-size-small);
+    }
+    > p{
+        color: var(--main-color-light);
+        margin-bottom: 1em;
+    }
+}
+
+.character-list{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, clamp(15rem, 100%, 20rem));
+    justify-content: center;
+    gap: 4rem;
+    >li{
+        display: grid;
+        gap: .5em;
+        padding: 2rem;
+        background-color: var(--main-color-light);
+        color: var(--accent-color);
+        aspect-ratio: 1;
+        border: 1em solid transparent;
+        border-radius: 2em;
+        border-image-source: url('../images/border-image-2.webp'); /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-image, https://pngmaker.io/tag/Square-Frame */
+        border-image-repeat: stretch;
+        border-image-slice: 200;
+        border-image-outset: 2rem;
+        border-image-width: 4.5rem;
+        cursor: pointer;
+        h2{
+            order: -2;
+            font-family:  ringbearer, 'Times New Roman', Times, serif;
+            font-size: var(--font-size-big);
+            text-align: center;
+        }
+        img{
+            order: -1;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+        ul{
+            li{
+                list-style-position: inside;
+                list-style-image: url();
+                font-family: hobbiton, 'Times New Roman', Times, serif;
+                font-size: var(--font-size-small);
+                text-box: trim-both cap alphabetic;
+            }
+            .race{
+                &::marker{  /* https://comicss.art/games/14/ */
+                    content: "🧝";
+                }
+            }
+            .speed{
+                &::marker{
+                    content: "🍃";
+                }
+            }
+        }
+
+    }
+}

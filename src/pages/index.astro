@@ -1,5 +1,158 @@
 ---
+// MARK: LOTR
+// https://the-one-api.dev/
+const baseurlLOTR = "https://the-one-api.dev/v2"
+const LOTRendPoint = "/character"
+const LOTRurl = baseurlLOTR + LOTRendPoint
 
+const responseLOTR = await fetch(LOTRurl, {
+  headers: {
+    Authorization: "Bearer R3RdrJt_7I3rzH3Pf7A8"
+  }
+})
+
+const lotrCharacters = (await responseLOTR.json()).docs
+
+const famousOnly = [
+  "Legolas",
+  "Aragorn II Elessar",
+  "Frodo Baggins",
+  "Samwise Gamgee",
+  "Meriadoc Brandybuck",
+  "Peregrin Took",
+  "Gandalf",
+  "Gollum",
+  "Boromir",
+  "Thranduil",
+  "Gimli",
+  "Thorin II Oakenshield",
+  "Treebeard",
+  "Elrond",
+  "Smaug",
+  "The King of the Dead"
+]
+
+// Handmatige mapping LOTR name → Wikia image URL
+const characterImages = {
+  "Legolas": "https://preview.redd.it/did-anyone-bother-to-tell-thranduil-that-legolas-joined-the-v0-9m3fnvpjficf1.jpeg?width=640&crop=smart&auto=webp&s=9ec5258ad31eb3a68577a27ca203e8667171024d",
+  "Aragorn II Elessar": "https://i.redd.it/what-might-have-been-the-reason-behind-aragorns-appearance-v0-gtvhitn24zif1.jpg?width=1500&format=pjpg&auto=webp&s=3054c4a34a2dac8cf987cfd7d83469f8cb94f967",
+  "Frodo Baggins": "https://static.wikia.nocookie.net/lotr/images/3/32/Frodo_%28FotR%29.png/revision/latest?cb=20221006065757",
+  "Samwise Gamgee": "https://image.guardian.co.uk/sys-images/Film/Pix/gallery/2003/12/05/sa3443m.jpg",
+  "Meriadoc Brandybuck": "https://i.pinimg.com/736x/49/79/7e/49797ef02fa77784578a794e5362be44.jpg",
+  "Peregrin Took": "https://geekmom.com/wp-content/uploads/2018/03/pippinfeature.jpg",
+  "Gandalf": "https://www.masqueespadas.com/wp-content/uploads/2022/06/MQE-Gandalf-1.jpg",
+  "Gollum": "https://pyxis.nymag.com/v1/imgs/5d4/f6e/c6aeaba039ba41d69a9dbce8c3523ec471-11-gollum.rsquare.w400.jpg",
+  "Boromir": "https://media.graphicpolicy.com/2021/10/OneDoesNotSimply.jpg",
+  "Thranduil": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Lee_Pace_as_Thranduil.jpg/250px-Lee_Pace_as_Thranduil.jpg",
+  "Gimli": "https://images.aftonbladet-cdn.se/v2/images/415e5150-0911-413a-824a-149bdb4388ee?fit=crop&format=auto&h=661&q=50&w=600&s=6275dbead0c89b70404e37c2165ab2e011f88b8e",
+  "Thorin II Oakenshield": "https://static.wikia.nocookie.net/middlearthfilmseries/images/5/5e/Thorin.jpeg/revision/latest?cb=20180502200009",
+  "Treebeard": "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2021/08/lord-of-the-rings-ents-feature-treebeard-picture-bright.jpg?q=50&fit=crop&w=825&dpr=1.5",
+  "Elrond": "https://static.wikia.nocookie.net/tolkien-online/images/d/da/Elrond.jpg/revision/latest?cb=20170411084525&path-prefix=nl",
+  "Smaug": "https://blog.flametreepublishing.com/hs-fs/hubfs/smaug-the-hobbit-1.jpg?width=1131&height=566&name=smaug-the-hobbit-1.jpg",
+  "The King of the Dead": "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/05/dead-army-king.png?q=49&fit=contain&w=750&h=422&dpr=2"
+}
+
+
+const characterOverrides = {
+  "The King of the Dead": { race: "Zombie" },
+  "Treebeard": { race: "Awakened Tree" },
+  "Smaug": { race: "Ancient White Dragon"},
+  "Gandalf": { speed: 30 }
+}
+
+
+const famousCharacters = lotrCharacters.filter(character => 
+	famousOnly.includes(character.name))
+  	.map(character => ({
+    	...character, // kopieert alle properties van het originele karacter
+		...characterOverrides[character.name],
+    	image: characterImages[character.name] || null
+  	}
+))
+
+
+
+
+
+
+
+// MARK: DnD
+// https://5e-bits.github.io/docs/
+const baseurlDND = "https://www.dnd5eapi.co/api/2014"
+
+const DNDendPointRaces = "/races"
+const DNDurlRaces = baseurlDND + DNDendPointRaces
+const responseDNDraces = await fetch(DNDurlRaces)
+const dndRaces = await responseDNDraces.json()
+
+const DNDendPointMonsters = "/monsters"
+const DNDurlMonsters = baseurlDND + DNDendPointMonsters
+const responseDNDmonsters = await fetch(DNDurlMonsters)
+const dndMonsters = await responseDNDmonsters.json()
+
+const dragons = dndMonsters.results.filter(monster =>
+  monster.name.toLowerCase().includes("magic")
+)
+
+console.log(dragons)
+
+// const dragon = dndMonsters.results.find(monster =>
+//   monster.name === "Ancient Red Dragon"
+// )
+
+
+
+
+
+
+//MARK: combine APIs
+// Combine D&D race names and monster names into one array
+const dndValidNames = [
+  ...dndRaces.results.map(r => r.name.toLowerCase()),
+  ...dndMonsters.results.map(m => m.name.toLowerCase()),
+  "maiar"
+]
+// console.log(dndValidNames)
+
+// Now filter characters with a single filter
+const charactersWithRaceOrMonster = famousCharacters.filter(character => {
+  const race = (character.race ?? "").toLowerCase()
+  const mappedRace = race === "hobbit" ? "halfling" : race
+  return dndValidNames.includes(mappedRace)
+})
+
+// console.log(charactersWithRaceOrMonster)
+
+
+async function addSpeedToCharacters(characters) {
+	const charactersWithSpeed = []
+
+	for (const character of characters) {
+		let race = (character.race ?? "").toLowerCase()
+		if (race === "hobbit") race = "halfling" 
+
+		const raceDetails = await getRaceDetails(race)
+		const speed = raceDetails?.speed || null
+
+		charactersWithSpeed.push({
+			...character,
+			speed
+		});
+  	}
+  	return charactersWithSpeed;
+}
+
+// Haal per race details op
+async function getRaceDetails(race) {
+	const raceEndpoint = dndRaces.results.find(r => r.name.toLowerCase() === race)?.url
+	if (!raceEndpoint) return null
+
+	const response = await fetch("https://www.dnd5eapi.co" + raceEndpoint)
+	return await response.json() // hier zit o.a. .speed
+}
+
+const famousCharactersWithSpeed = await addSpeedToCharacters(charactersWithRaceOrMonster)
+// console.log(famousCharactersWithSpeed);
 ---
 
 <html lang="en">
@@ -10,8 +163,22 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		<link rel="stylesheet" href="src/styles/style.css">
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Race to Mordor</h1>
+		<p>Choose a nemesis:</p>
+		<ul class="character-list">
+			{famousCharactersWithSpeed.map((character) =>
+				<li>
+					<h2>{character.name}</h2>
+					<ul>
+						<li class="race">{character.race}</li>
+						<li class="speed">Speed: {character.speed}</li>
+					</ul>
+					<img src={character.image} alt=""> 
+				</li>
+			)}
+		</ul>
 	</body>
 </html>
