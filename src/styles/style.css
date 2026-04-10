@@ -63,7 +63,7 @@ body{
         aspect-ratio: 1;
         border: 1em solid transparent;
         border-radius: 2em;
-        border-image-source: url('../images/border-image-2.webp'); /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-image, https://pngmaker.io/tag/Square-Frame */
+        border-image-source: url('../images/border-image.webp'); /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-image, https://pngmaker.io/tag/Square-Frame */
         border-image-repeat: stretch;
         border-image-slice: 200;
         border-image-outset: 2rem;
