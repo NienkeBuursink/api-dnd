@@ -1,0 +1,57 @@
+---
+// @ts-nocheck
+
+import { famousCharactersWithSpeed } from "../../scripts/characters.js"
+
+// http://docs.astro.build/en/guides/routing/
+export function getStaticPaths() {
+    return famousCharactersWithSpeed.map((character) => ({
+        params: { name: character.name },
+    }))
+}
+
+const { name } = Astro.params
+
+const character = famousCharactersWithSpeed.find(
+    (c) => c.name === decodeURI(name),
+)
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro</title>
+        <link rel="stylesheet" href="../src/styles/style.css" />
+        <link rel="stylesheet" href="../src/styles/racing.css" />
+        <script src="../src/scripts/tracker.js" defer></script>
+    </head>
+    <body>
+        <a href="/">Back</a>
+        <h1>Race against {character.name}</h1>
+        <p>{character.race} - {character.speed}</p>
+        <img src={character.image} alt={character.name} />
+
+        <section class="racetrack">
+            <div class="location-tracker">
+                <p>{character.name}</p>
+                <div class="person" data-speed={character.speed}> <!-- Perplexity prompt: How can I send data in an astro file to another js file? -->
+                </div>
+            </div>
+            <div class="location-tracker">
+                <p>You</p>
+                <div class="person running">
+                </div>
+            </div>
+            <div class="values">
+                <p>0m</p>
+                <p>100m</p>
+            </div>
+            <button type="button" class="start">Start!</button>
+        </section>
+        <div id="countdown" class="popup"></div>
+    </body>
+</html>

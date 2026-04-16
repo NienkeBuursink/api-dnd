@@ -1,0 +1,80 @@
+:root {
+    --tracker-ball-size: 1em;
+}
+
+body {
+    position: relative;
+}
+
+.racetrack {
+    color: var(--main-color-light);
+    display: grid;
+    gap: 1em;
+    width: 100%;
+    padding-block: 2em;
+    container-type: inline-size;
+
+    .location-tracker {
+        position: relative;
+        width: 100%;
+        display: grid;
+        align-items: center;
+        justify-content: start;
+
+        &::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 100%;
+            background-color: var(--main-color-light);
+            align-self: end;
+            margin-bottom: calc(var(--tracker-ball-size)/2);
+        }
+
+        p {
+            text-box: trim-both cap alphabetic;
+            padding-bottom: .5em;
+        }
+
+        .person {
+            background-color: var(--main-color-light);
+            aspect-ratio: 1;
+            width: var(--tracker-ball-size);
+            border-radius: 50%;
+        }
+    }
+}
+
+.values {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    place-items: center;
+    inset: 0;
+    font-family: ringbearer, 'Times New Roman', Times, serif;
+    background: rgba(0 52 0 / .5);
+    color: var(--main-color-light);
+    font-size: 10em;
+}
+
+.running {
+    animation: runningAni var(--running-ani-duration) linear forwards;
+}
+
+@keyframes runningAni {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(100cqw - 100%));
+    }
+}
