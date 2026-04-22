@@ -74,7 +74,7 @@ function updatePosition(pos) {
             currentPosition.lon
         )
         if (distance > 1) {
-            totalDistance += distance;
+            totalDistance += distance; 
             console.log("Distance added:", distance)
             console.log("Total:", totalDistance)
         } else {
