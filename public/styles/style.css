@@ -10,13 +10,13 @@
 
 @font-face {
     font-family: ringbearer;
-    src: url(/src/fonts/ringbearer.TTF); 
+    src: url(../fonts/ringbearer.TTF); 
     /* https://www.1001fonts.com/ringbearer-font.html */
 }
 
 @font-face {
     font-family: hobbiton;
-    src: url(/src/fonts/hobbiton.ttf); 
+    src: url(../fonts/hobbiton.ttf); 
     /* https://www.dafont.com/hobbiton.font?text=Elf&back=theme */
 }
 
