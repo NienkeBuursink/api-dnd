@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import { famousCharactersWithSpeed } from "../../scripts/characters.js"
+import '../../scripts/tracker.js'
 
 // http://docs.astro.build/en/guides/routing/
 export function getStaticPaths() {
@@ -25,9 +26,8 @@ const character = famousCharactersWithSpeed.find(
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>Astro</title>
-        <link rel="stylesheet" href="src/styles/style.css" />
-        <link rel="stylesheet" href="src/styles/racing.css" />
-        <script src="src/scripts/tracker.js" defer></script>
+        <link rel="stylesheet" href="../../../public/styles/style.css" />
+        <link rel="stylesheet" href="../../../public/styles/racing.css" />
     </head>
     <body>
         <a href="/">Back</a>
