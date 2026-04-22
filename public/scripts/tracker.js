@@ -7,6 +7,8 @@ startBtn.addEventListener("click", () => {
     let count = 3
     popup.textContent = count
     popup.style.display = "grid"
+    startBtn.style.pointerEvents = "none"
+    startBtn.style.opacity = ".3"
 
     const interval = setInterval(() => {
         count--
@@ -19,6 +21,7 @@ startBtn.addEventListener("click", () => {
             startRunningUser()
             setTimeout(() => {
                 popup.style.display = "none"
+                startBtn.textContent = "RUN!"
             }, 1000)
         }
     }, 1000)
@@ -27,10 +30,11 @@ startBtn.addEventListener("click", () => {
 
 
 
+
 //MARK: Character track
 const runner = document.querySelector(".person")
 const characterSpeedKmH = runner.dataset.speed
-const characterSpeed = parseFloat(characterSpeedKmH) / 3.6
+const characterSpeed = parseFloat(characterSpeedKmH) / 3.6 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
 const characterTrackTime = 100 / characterSpeed
 
 function startRunningCharacter() {
@@ -48,6 +52,7 @@ function startRunningCharacter() {
 let totalDistance
 let lastPosition
 let watchId
+let trackDistanceLeft = 100
 
 function startRunningUser() {
     totalDistance = 0
@@ -75,14 +80,15 @@ function updatePosition(pos) {
         )
         if (distance > 1) {
             totalDistance += distance; 
-            console.log("Distance added:", distance)
-            console.log("Total:", totalDistance)
+            // console.log("Distance added:", distance)
+            // console.log("Total:", totalDistance)
         } else {
             console.log("te weinig beweging")
         }
 
         const distanceElement = document.querySelector("#distance")
         distanceElement.textContent = `distance run: ${totalDistance.toFixed(1)} m`
+        moveLocationMark(totalDistance)
     }
 
     lastPosition = currentPosition
@@ -95,6 +101,16 @@ const options = {
 function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`)
 }
+
+
+function moveLocationMark(totalDistance){
+    const userLocationMark = document.querySelector(".person.user")
+    console.log(userLocationMark)
+    // trackDistanceLeft = trackDistanceLeft - totalDistance
+    // console.log(trackDistanceLeft)
+    userLocationMark.style.transform = `translateX(${totalDistance}cqw)`
+}
+
 
 
 
@@ -115,3 +131,5 @@ function getDistance(lat1, lon1, lat2, lon2) {
 
     return R * c; // afstand in meters
 }
+
+
