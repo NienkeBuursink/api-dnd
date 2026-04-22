@@ -6,7 +6,7 @@ const LOTRurl = baseurlLOTR + LOTRendPoint
 
 const responseLOTR = await fetch(LOTRurl, {
 	headers: {
-		Authorization: "Bearer R3RdrJt_7I3rzH3Pf7A8",
+		Authorization: `Bearer ${import.meta.env.LOTR_KEY}`,
 	},
 })
 

@@ -46,8 +46,11 @@ body {
 }
 
 .values {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & p:nth-child(2){
+        justify-self: end;
+    }
 }
 
 button {
