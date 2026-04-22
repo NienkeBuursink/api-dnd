@@ -36,7 +36,7 @@ const characterImages = {
 	Legolas:
 		"https://preview.redd.it/did-anyone-bother-to-tell-thranduil-that-legolas-joined-the-v0-9m3fnvpjficf1.jpeg?width=640&crop=smart&auto=webp&s=9ec5258ad31eb3a68577a27ca203e8667171024d",
 	"Aragorn II Elessar":
-		"https://i.redd.it/what-might-have-been-the-reason-behind-aragorns-appearance-v0-gtvhitn24zif1.jpg?width=1500&format=pjpg&auto=webp&s=3054c4a34a2dac8cf987cfd7d83469f8cb94f967",
+		"https://preview.redd.it/big-question-who-will-play-a-slightly-younger-aragorn-in-v0-zq8pj6kp0gzc1.jpeg?width=640&crop=smart&auto=webp&s=69171fc05af2162680ba8ff38f90a85509b750e1",
 	"Frodo Baggins":
 		"https://static.wikia.nocookie.net/lotr/images/3/32/Frodo_%28FotR%29.png/revision/latest?cb=20221006065757",
 	"Samwise Gamgee":
