@@ -102,6 +102,7 @@ body{
                     text-box: trim-both cap alphabetic;
                 }
                 .race{
+                    margin-bottom: .5rem;
                     &::marker{  /* https://comicss.art/games/14/ */
                         content: "🧝";
                     }

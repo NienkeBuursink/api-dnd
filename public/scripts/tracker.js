@@ -1,11 +1,13 @@
 //MARK: Start race
 const startBtn = document.querySelector(".start")
 const popup = document.querySelector("#countdown")
+let winner
 
 
 startBtn.addEventListener("click", () => {
     let count = 3
     popup.textContent = count
+    popup.style.fontSize = "10em"
     popup.style.display = "grid"
     startBtn.style.pointerEvents = "none"
     startBtn.style.opacity = ".3"
@@ -20,6 +22,7 @@ startBtn.addEventListener("click", () => {
             startRunningCharacter()
             startRunningUser()
             setTimeout(() => {
+                popup.style.fontSize = "medium"
                 popup.style.display = "none"
                 startBtn.textContent = "RUN!"
             }, 1000)
@@ -41,6 +44,13 @@ function startRunningCharacter() {
     // console.log(characterTrackTime)
     runner.style.setProperty("--running-ani-duration", characterTrackTime + "s") //https://www.w3schools.com/css/css3_variables_javascript.asp
     runner.classList.add("running")
+
+    runner.addEventListener("animationend", (event) => { }) //https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event
+    onanimationend = (event) => {
+        const characterName = runner.dataset.name
+        winner = characterName
+        finishRace(winner)
+    }
 }
 
 
@@ -62,6 +72,7 @@ function startRunningUser() {
 }
 
 function updatePosition(pos) {
+    let raceFinished = false
     const crd = pos.coords
 
     const currentPosition = {
@@ -87,8 +98,14 @@ function updatePosition(pos) {
         }
 
         const distanceElement = document.querySelector("#distance")
-        distanceElement.textContent = `distance run: ${totalDistance.toFixed(1)} m`
+        distanceElement.textContent = `distance run: ${totalDistance.toFixed(1)}m`
         moveLocationMark(totalDistance)
+
+        if (totalDistance >= 100){
+            console.log("you won")
+            winner = "you"
+            finishRace(winner)
+        }
     }
 
     lastPosition = currentPosition
@@ -109,6 +126,7 @@ function moveLocationMark(totalDistance){
     // trackDistanceLeft = trackDistanceLeft - totalDistance
     // console.log(trackDistanceLeft)
     userLocationMark.style.transform = `translateX(${totalDistance}cqw)`
+
 }
 
 
@@ -133,3 +151,17 @@ function getDistance(lat1, lon1, lat2, lon2) {
 }
 
 
+
+// MARK: Finish race
+function finishRace(winner){
+    popup.style.display = "grid"
+    console.log(winner)
+    popup.innerHTML=`
+        <h2 class="winner">${winner} won!</h2>
+        <button class="restart">Restart</button>`
+    const restartButton = document.querySelector(".restart")
+    restartButton.addEventListener("click", ()=>{
+        window.location.reload()
+    })
+
+}

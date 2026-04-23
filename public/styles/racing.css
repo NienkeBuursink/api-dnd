@@ -6,6 +6,11 @@ body {
     position: relative;
 }
 
+.back-to-home{
+    font-family: ringbearer, 'Times New Roman', Times, serif;
+    color: var(--main-color-light);
+}
+
 .racetrack {
     color: var(--main-color-light);
     display: grid;
@@ -70,7 +75,15 @@ button {
     font-family: ringbearer, 'Times New Roman', Times, serif;
     background: rgba(0 52 0 / .5);
     color: var(--main-color-light);
-    font-size: 10em;
+    text-align: center;
+    .winner{
+        font-size: var(--font-size-huge);
+        align-self: end;
+    }
+    button{
+        font-size: var(--font-size-big);
+        align-self: start;
+    }
 }
 
 .running {
