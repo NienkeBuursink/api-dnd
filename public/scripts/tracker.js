@@ -41,7 +41,6 @@ const characterSpeed = parseFloat(characterSpeedKmH) / 3.6 //https://developer.m
 const characterTrackTime = 100 / characterSpeed
 
 function startRunningCharacter() {
-    // console.log(characterTrackTime)
     runner.style.setProperty("--running-ani-duration", characterTrackTime + "s") //https://www.w3schools.com/css/css3_variables_javascript.asp
     runner.classList.add("running")
 
@@ -91,8 +90,6 @@ function updatePosition(pos) {
         )
         if (distance > 1) {
             totalDistance += distance; 
-            // console.log("Distance added:", distance)
-            // console.log("Total:", totalDistance)
         } else {
             console.log("te weinig beweging")
         }
@@ -102,7 +99,6 @@ function updatePosition(pos) {
         moveLocationMark(totalDistance)
 
         if (totalDistance >= 100){
-            console.log("you won")
             winner = "you"
             finishRace(winner)
         }
@@ -122,11 +118,7 @@ function error(err) {
 
 function moveLocationMark(totalDistance){
     const userLocationMark = document.querySelector(".person.user")
-    console.log(userLocationMark)
-    // trackDistanceLeft = trackDistanceLeft - totalDistance
-    // console.log(trackDistanceLeft)
     userLocationMark.style.transform = `translateX(${totalDistance}cqw)`
-
 }
 
 
@@ -155,7 +147,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
 // MARK: Finish race
 function finishRace(winner){
     popup.style.display = "grid"
-    console.log(winner)
     popup.innerHTML=`
         <h2 class="winner">${winner} won!</h2>
         <button class="restart">Restart</button>`

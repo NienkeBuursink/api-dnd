@@ -69,7 +69,7 @@ const characterOverrides = {
 	"The King of the Dead": { race: "Zombie" },
 	Treebeard: { race: "Awakened Tree" },
 	Smaug: { race: "Ancient Red Dragon" },
-	Gandalf: { speed: 1000 }, // 35 maar nu 100 om snel te testen
+	Gandalf: { speed: 35 },
 }
 
 const famousCharacters = lotrCharacters
