@@ -2,6 +2,7 @@
 const startBtn = document.querySelector(".start")
 const popup = document.querySelector("#countdown")
 let winner
+let userWalk = false
 
 
 startBtn.addEventListener("click", () => {
@@ -66,45 +67,47 @@ let trackDistanceLeft = 100
 function startRunningUser() {
     totalDistance = 0
     lastPosition = null
-
+    userWalk = true
     watchId = navigator.geolocation.watchPosition(updatePosition, error, options)
 }
 
 function updatePosition(pos) {
-    let raceFinished = false
-    const crd = pos.coords
+    if (userWalk === true) {
+        let raceFinished = false
+        const crd = pos.coords
 
-    const currentPosition = {
-        lat: crd.latitude,
-        lon: crd.longitude
-    }
-
-    console.log("Current:", currentPosition)
-
-    if (lastPosition) {
-        const distance = getDistance(
-            lastPosition.lat,
-            lastPosition.lon,
-            currentPosition.lat,
-            currentPosition.lon
-        )
-        if (distance > 1) {
-            totalDistance += distance; 
-        } else {
-            console.log("te weinig beweging")
+        const currentPosition = {
+            lat: crd.latitude,
+            lon: crd.longitude
         }
 
-        const distanceElement = document.querySelector("#distance")
-        distanceElement.textContent = `distance run: ${totalDistance.toFixed(1)}m`
-        moveLocationMark(totalDistance)
+        console.log("Current:", currentPosition)
 
-        if (totalDistance >= 100){
-            winner = "you"
-            finishRace(winner)
+        if (lastPosition) {
+            const distance = getDistance(
+                lastPosition.lat,
+                lastPosition.lon,
+                currentPosition.lat,
+                currentPosition.lon
+            )
+            if (distance > 1) {
+                totalDistance += distance;
+            } else {
+                console.log("te weinig beweging")
+            }
+
+            const distanceElement = document.querySelector("#distance")
+            distanceElement.textContent = `distance run: ${totalDistance.toFixed(1)}m`
+            moveLocationMark(totalDistance)
+
+            if (totalDistance >= 100) {
+                winner = "you"
+                finishRace(winner)
+            }
         }
-    }
 
-    lastPosition = currentPosition
+        lastPosition = currentPosition
+    }
 }
 
 const options = {
@@ -116,7 +119,7 @@ function error(err) {
 }
 
 
-function moveLocationMark(totalDistance){
+function moveLocationMark(totalDistance) {
     const userLocationMark = document.querySelector(".person.user")
     userLocationMark.style.transform = `translateX(${totalDistance}cqw)`
 }
@@ -134,8 +137,8 @@ function getDistance(lat1, lon1, lat2, lon2) {
     const Δλ = (lon2 - lon1) * Math.PI / 180;
 
     const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-              Math.cos(φ1) * Math.cos(φ2) *
-              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -145,13 +148,14 @@ function getDistance(lat1, lon1, lat2, lon2) {
 
 
 // MARK: Finish race
-function finishRace(winner){
+function finishRace(winner) {
+    userWalk = false
     popup.style.display = "grid"
-    popup.innerHTML=`
+    popup.innerHTML = `
         <h2 class="winner">${winner} won!</h2>
         <button class="restart">Restart</button>`
     const restartButton = document.querySelector(".restart")
-    restartButton.addEventListener("click", ()=>{
+    restartButton.addEventListener("click", () => {
         window.location.reload()
     })
 
