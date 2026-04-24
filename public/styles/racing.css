@@ -2,13 +2,22 @@
     --tracker-ball-size: 1em;
 }
 
-body {
-    position: relative;
-}
-
 .back-to-home{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1em;
     font-family: ringbearer, 'Times New Roman', Times, serif;
     color: var(--main-color-light);
+}
+
+body {
+    position: relative;
+    display: grid;
+    >img{
+        max-height: 15rem;
+        place-self: center;
+    }
 }
 
 .racetrack {
@@ -68,14 +77,25 @@ button {
 }
 
 .popup {
-    display: none;
-    position: absolute;
-    place-items: center;
+    position: fixed;
+    place-self: center;
+    place-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    border: none;
     inset: 0;
+    background: transparent;
     font-family: ringbearer, 'Times New Roman', Times, serif;
-    background: rgba(0 52 0 / .5);
     color: var(--main-color-light);
     text-align: center;
+    &::backdrop{ /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::backdrop */
+        background: rgba(0 52 0 / .5);
+    }
+    .countdown{
+        font-size: 10em;
+        font-family: ringbearer, 'Times New Roman', Times, serif;
+    }
     .winner{
         font-size: var(--font-size-huge);
         align-self: end;

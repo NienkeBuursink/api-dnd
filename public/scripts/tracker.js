@@ -1,30 +1,28 @@
 //MARK: Start race
 const startBtn = document.querySelector(".start")
-const popup = document.querySelector("#countdown")
+const popup = document.querySelector(".popup")
 let winner
 let userWalk = false
 
 
 startBtn.addEventListener("click", () => {
     let count = 3
-    popup.textContent = count
-    popup.style.fontSize = "10em"
-    popup.style.display = "grid"
+    popup.showModal() // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal
+    popup.innerHTML= `<p class="countdown">${count}</p>`
     startBtn.style.pointerEvents = "none"
     startBtn.style.opacity = ".3"
 
     const interval = setInterval(() => {
         count--
         if (count > 0) {
-            popup.textContent = count
+            popup.innerHTML= `<p class="countdown">${count}</p>`
         } else {
-            popup.textContent = "GO!"
+            popup.innerHTML= `<p class="countdown">GO!</p>`
             clearInterval(interval)
             startRunningCharacter()
             startRunningUser()
             setTimeout(() => {
-                popup.style.fontSize = "medium"
-                popup.style.display = "none"
+                popup.close()
                 startBtn.textContent = "RUN!"
             }, 1000)
         }
@@ -150,7 +148,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
 // MARK: Finish race
 function finishRace(winner) {
     userWalk = false
-    popup.style.display = "grid"
+    popup.showModal()
     popup.innerHTML = `
         <h2 class="winner">${winner} won!</h2>
         <button class="restart">Restart</button>`
