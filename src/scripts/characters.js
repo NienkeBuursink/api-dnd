@@ -12,7 +12,7 @@ const responseLOTR = await fetch(LOTRurl, {
 
 
 const response = await responseLOTR.json();
-console.log(response);
+// console.log(response);
 const lotrCharacters = response.docs
 
 const famousOnly = [
